@@ -15,7 +15,8 @@ function App() {
 
   useEffect(() => {
     declarationService.getAll().then((initialDeclarations) => {
-      setDeclarations(initialDeclarations);
+      initialDeclarations.Items.map(declaration=> console.log(declaration))
+      setDeclarations(initialDeclarations.Items);
     });
   }, []);
 
@@ -180,12 +181,12 @@ function App() {
             {(rowsPerPage > 0
               ? declarations.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : declarations
-              ).map((declaration) => (
-                <TableRow key={declaration._id}>
-                  <TableCell align="right">{declaration.name}</TableCell>
-                  <TableCell align="right">{declaration.temperature}</TableCell>
-                  <TableCell align="right">{declaration.symptoms}</TableCell>
-                  <TableCell align="right">{declaration.inContact}</TableCell>
+              ).map((declaration) => ( // forEach doesn't work here. Not sure why.
+                <TableRow key={declaration.declarationID.S}>
+                  <TableCell align="right">{declaration.name.S}</TableCell>
+                  <TableCell align="right">{declaration.temperature.S}</TableCell>
+                  <TableCell align="right">{declaration.symptoms.L.toString()}</TableCell>
+                  <TableCell align="right">{declaration.inContact.BOOL.toString()}</TableCell>
                 </TableRow>
               ))}
 
